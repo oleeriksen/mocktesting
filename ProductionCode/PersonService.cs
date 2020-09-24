@@ -5,7 +5,7 @@ using ProductionCode.Kernel;
 
 namespace ProductionCode
 {
-    public class PersonService : IDataAccess
+    public class PersonService
     {
         IDataAccess mDataAccess;
         public PersonService(IDataAccess da)
@@ -15,22 +15,25 @@ namespace ProductionCode
 
         public void Delete(BEPerson p)
         {
-           
+            mDataAccess.Delete(p);  
         }
 
         public IEnumerable<BEPerson> GetAll()
         {
-            throw new NotImplementedException();
+            return mDataAccess.GetAll();
         }
 
         public BEPerson GetById(int id)
         {
-            throw new NotImplementedException();
+            foreach (BEPerson p in mDataAccess.GetAll())
+                if (p.Id == id)
+                  return p;
+            return null;
         }
 
         public void Insert(BEPerson p)
         {
-            if (p != null && ! String.IsNullOrEmpty(p.Name))
+            if (! String.IsNullOrEmpty(p.Name))
                 mDataAccess.Insert(p);
     
         }
@@ -42,11 +45,22 @@ namespace ProductionCode
 
         public List<BEPerson> GetByAge(int minAge, int maxAge)
         {
+           
             List<BEPerson> result = new List<BEPerson>();
             foreach (BEPerson p in mDataAccess.GetAll())
                 if (minAge <= p.Age && p.Age <= maxAge)
                     result.Add(p);
             return result;
+        }
+
+        public List<BEPerson> GetByName(string s) {
+
+            List<BEPerson> result = new List<BEPerson>();
+            foreach (BEPerson p in mDataAccess.GetAll())
+                if ( p.Name.Contains(s) )
+                    result.Add(p);
+            return result;
+
         }
     }
 }
