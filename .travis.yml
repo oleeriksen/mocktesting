@@ -1,0 +1,8 @@
+language: csharp
+mono: none
+dotnet: 3.0
+solution: mocktesting.sln
+script:
+ - dotnet restore
+ - dotnet build
+ - dotnet test TestProductionCode/TestProductionCode.csproj
