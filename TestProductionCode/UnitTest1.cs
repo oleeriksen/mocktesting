@@ -76,7 +76,7 @@ namespace TestProductionCode
             mock.Verify(m => m.GetAll(), Times.Once);
 
             Assert.IsTrue(actualResult.Count == 1, "Count is NOT 1");
-            Assert.IsTrue(actualResult.Contains(returnValue[1]), "It is the wrong person");
+            Assert.IsTrue(actualResult.Contains(returnValue[0]), "It is the wrong person");
         }
 
     }
